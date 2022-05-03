@@ -30,5 +30,11 @@ router.get('/nearby', [
     authController.authBearerToken
 ], userController.findNearbyUsers);
 
+router.get('/nearby-friends', [
+    body('lat').exists(),
+    body('long').exists(),
+    authController.authBearerToken
+], userController.findNearbyFriends);
+
 
 module.exports = router;

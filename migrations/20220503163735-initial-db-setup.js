@@ -72,7 +72,7 @@ const migrationCommands = (transaction) => [
   {
     fn: "createTable",
     params: [
-      "Users",
+      "User",
       {
         user_id: {
           type: Sequelize.BIGINT,
