@@ -1,4 +1,5 @@
 const User = require('../models').User
+const db = require('../models/index');
 
 async function findUserById(userId) {
     if (!userId) throw new Error('Invalid argument: User Id')
@@ -63,6 +64,40 @@ async function createUserAccount(email, password) {
     return null;
 }
 
+/**
+ * Find nearby 'X' miles places by latitude and longitude. Code taken from :
+ * http://stackoverflow.com/questions/2234204/latitude-longitude-find-nearest-latitude-longitude-complex-sql-or-complex-calc
+ *
+ * @param   latitude
+ * @param   longitude
+ *
+ * @return  Place
+ */
+
+// TODO: Can also change this sql to stored procedure for faster query speed
+// Taken from -> https://www.scribd.com/presentation/2569355/Geo-Distance-Search-with-MySQL
+async function findNearbyUsers(user, lat, long) {
+    const MAXIMUM_DISTANCE_AWAY = 10; // This is the max distance (in miles) away from latlong in which to search
+
+    const sql = "SELECT u.*, 3956 * 2 * ASIN(SQRT(POWER(SIN((:latitude" +
+        " - g.latitude) * PI() / 180 / 2), 2) + COS(:latitude" +
+        " * PI() / 180) * COS(g.latitude * PI() / 180) * POWER(SIN((:longitude" +
+        " - g.longitude) * PI() / 180 / 2), 2))) as distance " +
+        "FROM User u, UserAddresses ua, GeoLocation g " +
+        "WHERE u.user_id = ua.user_id " +
+        "AND ua.geo_id = g.geo_id " +
+        "AND g.longitude between (:longitude - " + MAXIMUM_DISTANCE_AWAY + "/abs(cos(radians(:latitude)) * 69)) and (:longitude + " + MAXIMUM_DISTANCE_AWAY + "/abs(cos(radians(:latitude)) * 69)) " +
+        "AND g.latitude between (:latitude - (" + MAXIMUM_DISTANCE_AWAY + " / 69)) and (:latitude + (" + MAXIMUM_DISTANCE_AWAY + " / 69)) " +
+        "having distance < " + MAXIMUM_DISTANCE_AWAY + " ORDER BY distance limit 100";
+
+    const records = await db.sequelize.query(sql,
+        { replacements: {latitude: lat, longitude: long} });
+
+    if (records) return records;
+
+    return null;
+}
+
 async function updateUserProfile(user, description, firstName, lastName, gender, date_of_birth) {
 
     console.error(user);
@@ -110,5 +145,6 @@ module.exports = {
     findUserCredentialsByEmail,
     findUserByEmail,
     createUserAccount,
-    updateUserProfile
+    updateUserProfile,
+    findNearbyUsers
 };

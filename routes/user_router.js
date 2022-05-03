@@ -24,5 +24,11 @@ router.post('/profile', [
     authController.authBearerToken
 ], userController.updateUserProfile);
 
+router.get('/nearby', [
+    body('lat').exists(),
+    body('long').exists(),
+    authController.authBearerToken
+], userController.findNearbyUsers);
+
 
 module.exports = router;

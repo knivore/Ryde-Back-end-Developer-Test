@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         // Class Level Methods
         static associate(models) {
             User.hasOne(models.UserAddress, {sourceKey: 'user_id', foreignKey: 'user_id'})
+            User.hasMany(models.Friend, {sourceKey: 'user_id', foreignKey: 'user_id'})
         }
 
         // Instance Level Methods

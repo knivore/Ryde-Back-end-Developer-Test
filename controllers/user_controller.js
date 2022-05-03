@@ -16,6 +16,22 @@ function updateUserProfile(req, res, next) {
     });
 }
 
+function findNearbyUsers(req, res, next) {
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(412).json({status: 'error', errors: errors.array()});
+    }
+
+    userService.findNearbyUsers(req.user, req.body.lat, req.body.long).then(result => {
+        if (result > 0)
+            return res.status(200).json({status: 'success'})
+        else
+            return res.status(200).json({status: 'error', message: 'Unable to obtain any nearby friends'});
+    });
+}
+
 module.exports = {
-    updateUserProfile
+    updateUserProfile,
+    findNearbyUsers
 };
