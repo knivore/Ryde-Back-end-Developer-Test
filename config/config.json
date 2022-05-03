@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "password",
+    "database": "Ryde",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "define": {
+      "charset": "utf8mb4"
+    }
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "Ryde",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "define": {
+      "charset": "utf8mb4",
+      "version": true
+    }
+  }
+}
