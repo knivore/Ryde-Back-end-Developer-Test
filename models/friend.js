@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     class Friend extends Model {
         // Class Level Methods
         static associate(models) {
-            Friend.belongsTo(models.User, {targetKey: 'friend_id', foreignKey: 'user_id'})
+            Friend.belongsTo(models.User, {targetKey: 'user_id', foreignKey: 'friend_id'})
         }
 
         // Instance Level Methods

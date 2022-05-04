@@ -27,7 +27,7 @@ Database configuration & Node models setup (Manual step by step)
 
 Start up (Auto)
 1. Run the following in terminal:\
-```npm start:dev ```
+```npm start dev ```
 
 How to run tests
 ========================

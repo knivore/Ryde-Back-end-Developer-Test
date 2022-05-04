@@ -15,7 +15,7 @@ module.exports = {
             {
                 email: 'chinkeh@hotmail.com',
                 password: 'password',
-                username: 'Knivore',
+                description: '',
                 first_name: 'Chin Leong',
                 last_name: 'Keh',
                 gender: 'M',
@@ -28,7 +28,7 @@ module.exports = {
             {
                 email: 'keh.p4nc4k3@gmail.com',
                 password: 'password',
-                username: 'Pancake',
+                description: '',
                 first_name: 'Chin Leong',
                 last_name: 'Keh',
                 gender: 'M',

@@ -83,7 +83,7 @@ async function findNearbyUsers(user, lat, long) {
         " - g.latitude) * PI() / 180 / 2), 2) + COS(:latitude" +
         " * PI() / 180) * COS(g.latitude * PI() / 180) * POWER(SIN((:longitude" +
         " - g.longitude) * PI() / 180 / 2), 2))) as distance " +
-        "FROM User u, UserAddresses ua, GeoLocation g " +
+        "FROM Users u, UserAddresses ua, GeoLocation g " +
         "WHERE u.user_id = ua.user_id " +
         "AND ua.geo_id = g.geo_id " +
         "AND g.longitude between (:longitude - " + MAXIMUM_DISTANCE_AWAY + "/abs(cos(radians(:latitude)) * 69)) and (:longitude + " + MAXIMUM_DISTANCE_AWAY + "/abs(cos(radians(:latitude)) * 69)) " +
@@ -105,7 +105,7 @@ async function findNearbyFriends(user, lat, long) {
         " - g.latitude) * PI() / 180 / 2), 2) + COS(:latitude" +
         " * PI() / 180) * COS(g.latitude * PI() / 180) * POWER(SIN((:longitude" +
         " - g.longitude) * PI() / 180 / 2), 2))) as distance " +
-        "FROM User u, Friend f, UserAddresses ua, GeoLocation g " +
+        "FROM Users u, Friend f, UserAddresses ua, GeoLocation g " +
         "WHERE u.user_id = ua.user_id " +
         "AND ua.geo_id = g.geo_id " +
         "AND g.longitude between (:longitude - " + MAXIMUM_DISTANCE_AWAY + "/abs(cos(radians(:latitude)) * 69)) and (:longitude + " + MAXIMUM_DISTANCE_AWAY + "/abs(cos(radians(:latitude)) * 69)) " +
